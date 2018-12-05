@@ -1,0 +1,10 @@
+extends index_weather.pug
+
+block content
+    h2 Vad ska du ha på dig idag?
+    form(method='POST' action='/clothes')
+        input(type='text', placeholder='Vart befinner du dig?', name='city')
+        input(type='submit', name='data')
+    if(name)
+        p="Stad: " + name
+        p="Temperatur: " + temp
