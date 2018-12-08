@@ -1,10 +1,15 @@
 extends index_weather.pug
 
 block content
-    h2 Vad ska du ha på dig idag?
-    form(method='POST' action='/clothes')
-        input(type='text', placeholder='Vart befinner du dig?', name='city')
-        input(type='submit', name='data')
-    if(name)
-        p="Stad: " + name
-        p="Temperatur: " + temp
+    .form-style
+        form(method='POST' action='/clothes')
+            input.inputfield(type='text', placeholder='Vart befinner du dig?', name='city')
+            br
+            input.button(type='submit', name='data')
+    .answer
+        if(name)
+            h3="Klädkod: " + clothes
+            img(src=foto, alt="" height="200px")
+            p="Stad: " + name
+            p="Temperatur: " + temp
+            p="Luftfuktighet: " + hum

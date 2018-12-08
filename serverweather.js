@@ -18,14 +18,15 @@ app.use( ( req, res, next ) => {
 
 ////////////
 //MINA VARIABLER
-var rRequest = require("request");
+// var rRequest = require("request");
 const fetch = require("node-fetch");
 let parsedData = "";
 let temp = "";
 let city = "";
 let svar = "";
 var list = {};
-// const url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=7e3528d98d4f8d06d7ac8d1ea40592bd";
+let clothes = "";
+let foto = "";
 
 
 //Skriver ut formuläret från post_form_weather.pug  OK!
@@ -56,17 +57,31 @@ const getData = async function (city) {
         const response = await fetch(url);
         const json = await response.json();
         list["name"] = json.name;
-        list["temp"] = json.main.temp - 273;
+        var num = json.main.temp - 273;
+        var temp = num.toFixed(0);
+        list["temp"] = temp
         list["hum"] = json.main.humidity;
-        list["lat"] = json.coord.lat;
-
+        
+        if (temp < 0) {
+            console.log("Bär halsduk");
+            clothes = "Bär halsduk";
+            foto = "https://www.shitpostbot.com/img/sourceimages/lenny-kravitz-scarf-583cc9144157a.jpeg"
+        } else if (temp > 0) {
+            console.log("Bär shorts");
+            clothes = "Bär shorts";
+            foto = "http://www.wigglestatic.com/product-media/5360091241/Assos-T-equipe_s7-Bib-Shorts-Lycra-Cycling-Shorts-Black-Volkanga-SS16-11-10-161-12-s.jpg?w=430&h=430&a=7"
+        } else {
+            console.log("Gå naken");
+            clothes = "Gå naken";
+            foto = "https://www.svtstatic.se/image-cms/oppet-arkiv/1485507871000/incoming/article12126058.svt/ALTERNATES/extralarge/ballongdansen-jpg"
+        };
+        list["clothes"] = clothes
+        list["foto"] = foto;
+        
     } catch (error) {
         console.log(error);
     }
 };
-
-
-
 
 
 
